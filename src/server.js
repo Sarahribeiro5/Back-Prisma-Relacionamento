@@ -1,8 +1,9 @@
 import express from "express";
 import { config } from "dotenv";
+import cors from "cors"; // Import o middleware CORS
 
 import animesRouter from "./routes/animeRoutes.js";
-import personagemRouter from "./routes/personagemRoutes.js"; // Corrigido o nome da importação
+import collectionsRouter from "./routes/collectionRoutes.js";  
 
 config(); // Carrega variáveis de ambiente do arquivo .env
 const port = process.env.PORT || 4001;
@@ -13,7 +14,7 @@ const app = express();
 app.use(express.json()); // Parse de JSON
 
 app.use("/animes", animesRouter); // Usar as rotas de animes
-app.use("/personagens", personagemRouter); // Corrigido o uso da rota de personagens
+app.use("/colecoes", collectionRouter); // Usar as rotas de coleções
 
 // Rota base para verificar se o servidor está rodando
 app.get("/", (req, res) => {
