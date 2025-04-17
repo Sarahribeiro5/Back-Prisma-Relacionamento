@@ -30,48 +30,34 @@ class CollectionController {
     }
   }
 
-  // POST /api/personagens
-  async createPersonagem(req, res) {
+  // POST /colecoes
+  async createCollection(req, res) {
     try {
       // Validação básica
-      const {
-        name,
-        description,
-        age,
-        power,
-        anime
-      } = req.body;
+      const { name, description, releaseYear } = req.body;
 
       // Verifica se todos os campos do personagem foram fornecidos
-      if (
-        !name ||
-        !description ||
-        !age ||
-        !power ||
-        !anime 
-      ) {
-        return res
-          .status(400)
-          .json({ error: "Todos os campos são obrigatórios" });
+      if ( !name ||!releaseYear ) {
+        return res.status(400)
+          .json({ error: "Os campos nome e ano de lançamento" 
+          });
       }
 
-      // Criar o novo personagem
-      const newPersonagem = await PersonagemModel.create(
+      // Criar a nova coleção
+      const newCollection = await CollectionModel.create(
         name,
         description,
-        age,
-        power,
-        anime
+        releaseYear
       );
 
-      if (!newPersonagem) {
-        return res.status(400).json({ error: "Erro ao criar personagem" });
+      if (!newCollection) {
+        return res.status(400).json({ error: "Erro ao criar coleção" });
       }
 
-      res.status(201).json(newPersonagem);
+      res.status(201).json(newCollection);
     } catch (error) {
-      console.error("Erro ao criar personagem:", error);
-      res.status(500).json({ error: "Erro ao criar personagem" });
+      console.error("Erro ao criar coleção:", error);
+      res.status(500).json({ error: "Erro ao criar coleção" });
     }
   }
 
